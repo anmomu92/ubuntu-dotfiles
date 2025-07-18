@@ -1,0 +1,14 @@
+[Unit]
+Description=Watch GNOME theme changes and update GNOME Terminal
+After=graphical-session.target
+Requires=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/scripts/watch-gnome-theme.sh
+Restart=on-failure
+Environment=DISPLAY=:0
+Environment=XDG_CURRENT_DESKTOP=GNOME
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+
+[Install]
+WantedBy=default.target
