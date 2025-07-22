@@ -71,7 +71,7 @@ echo ":: Scripts to link" >> $LOG_FILE
 echo "::" >> $LOG_FILE
 
 # Look for the scripts
-for s in $REPO_DIR/.local/scripts/; do	
+for s in $REPO_DIR/.local/scripts/*; do	
 	script=$(basename $s)
 
 	echo ":: $script" >> $LOG_FILE
@@ -81,6 +81,11 @@ for s in $REPO_DIR/.local/scripts/; do
 		echo "" >> $LOG_FILE
 		echo ":: Removing $script symlink"
 		rm $SCRIPTS_DIR/$script 2>> $LOG_FILE
+	elif [[ -f $SCRIPTS_DIR/$script && ! -L $SCRIPTS_DIR/$script ]]; then
+		echo "" >> $LOG_FILE
+		echo ":: Backing up $app" >> $LOG_FILE
+		rm $BACKUP_DIR/$script 2>> $LOG_FILE
+		mv $SCRIPTS_DIR/$script $BACKUP_DIR/$script 2>> $LOG_FILE
 	fi
 
 	# Create symlink
