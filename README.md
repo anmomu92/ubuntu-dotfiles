@@ -13,7 +13,7 @@ This repository contains dotfiles specific to my Ubuntu distro. As I have differ
 - **Shell**: Zsh + starship prompt (no plugins).
 - **Text editor**: Neovim.
 - **Window manager**: Gnome.
-- **Multimedie**: Gnome toolsuite.
+- **Multimedia**: Gnome toolsuite.
 
 ## 🛠️ Installation
 
