@@ -2,8 +2,6 @@
 #
 # Author: Antonio Moran
 
-# TODO: Improve logs readability
-
 BACKUP_DIR="$HOME/.backups/config"
 REPO_DIR=$(dirname "$(realpath "$0")")
 SCRIPTS_DIR="$HOME/.local/scripts"
@@ -37,10 +35,12 @@ echo "UBUNTU DOTFILES INSTALLATION SCRIPT" | tee $LOG_FILE
 echo "-----------------------------------" | tee -a $LOG_FILE
 echo "" | tee -a $LOG_FILE
 
+sleep $TIME_1
+
 echo ":: Proceeding to dotfiles linkage" | tee -a $LOG_FILE
 echo "" | tee -a $LOG_FILE
 
-sleep $TIME_1
+sleep $TIME_3
 
 # Look for the dotfiles
 for d in $REPO_DIR/.config/*; do
@@ -69,7 +69,7 @@ done
 echo ":: Proceeding to scripts linkage" | tee -a $LOG_FILE
 echo "" | tee -a $LOG_FILE
 
-sleep $TIME_1
+sleep $TIME_3
 
 # Look for the scripts
 for s in $REPO_DIR/.local/scripts/*; do	
@@ -97,5 +97,21 @@ done
 
 sleep $TIME_3
 
+echo ":: Proceeding to enable the gnome-terminal-theme-watcher service" | tee -a $LOG_FILE
+echo "" | tee -a $LOG_FILE
+
+sudo systemctl daemon-reload
+
+if ! systemctl --user is-enabled --quiet gnome-terminal-theme-watcher.service; then
+	sudo systemctl --user enable gnome-terminal-theme-watcher
+elif ! systemctl --user is-active --quiet gnome-terminal-theme-watcher.service; then
+	sudo systemctl --user start gnome-terminal-theme-watcher
+else
+	echo "gnome-terminal-theme-watcher.service is already enabled and active." | tee -a $LOG_FILE
+fi
+
+sleep $TIME_3
+
+echo ""
 echo ":: INSTALLATION COMPLETE!"
 echo ":: You can check out the log at $LOG_FILE"
