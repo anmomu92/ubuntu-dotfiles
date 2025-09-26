@@ -1,0 +1,11 @@
+[Unit]
+Description=Sync tasks at boot
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/task sync
+RemainAfterExit=true
+
+[Install]
+WantedBy=default.target
