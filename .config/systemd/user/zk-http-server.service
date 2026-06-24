@@ -1,0 +1,10 @@
+[Unit]
+Description=Python HTTP Server for zk-graph-viz
+
+[Service]
+WorkingDirectory=%h
+ExecStart=/usr/bin/bash /home/anmomu92/.local/scripts/zk-graph-viz
+Restart=always
+
+[Install]
+WantedBy=default.target
